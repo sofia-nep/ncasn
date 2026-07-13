@@ -31,7 +31,7 @@ type SrvRecord struct {
 	Priority uint16  `asn1:"size:0..65535"`
 	Weight   *uint16 `asn1:"optional,size:0..65535"`
 	Port     uint16  `asn1:"size:0..65535"`
-	Target   string  `asn1:"ia5string,size:1..255"`
+	Target   string  `asn1:"ia5string,size:0..255"`
 }
 
 type DsRecord struct {
@@ -43,7 +43,7 @@ type DsRecord struct {
 
 type TxtRecord struct {
 	// May contain quoted strings up to 255 characters each.
-	Content string `asn1:"ia5string,size:1..4096"`
+	Content string `asn1:"ia5string,size:0..4096"`
 }
 
 // Always assumed to be DANE-TA
@@ -79,7 +79,7 @@ type LocRecord struct {
 
 type MxRecord struct {
 	Priority uint16 `asn1:"size:0..65535"`
-	Target   string `asn1:"ia5string,size:1..255"`
+	Target   string `asn1:"ia5string,size:0..255"`
 }
 
 type SshfpRecord struct {
@@ -111,5 +111,5 @@ type HyphanetUSKRecord struct {
 
 type GenericRecord struct {
 	Type   uint16 `asn1:"size:0..65535"`
-	Target string `asn1:"ia5string,size:1..255"`
+	Target string `asn1:"ia5string,size:0..255"`
 }
