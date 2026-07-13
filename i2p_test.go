@@ -26,7 +26,7 @@ import (
 
 const SAMPLE_I2P = "ukeu3k5oycgaauneqgtnvselmt4yemvoilkln7jpvamvfx7dnkdq.b32.i2p"
 
-var SAMPLE_I2P_RECORD = ncasn.I2pB32Record{
+var SAMPLE_I2P_RECORD = ncasn.I2PB32{
 	Bytes: []byte{
 		0xa2, 0x89, 0x4d, 0xab,
 		0xae, 0xc0, 0x8c, 0x00,

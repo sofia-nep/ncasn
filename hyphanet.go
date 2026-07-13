@@ -27,7 +27,7 @@ import (
 
 var HYPHA_ENCODING = base64.NewEncoding("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~-").WithPadding(base64.NoPadding)
 
-func (record *HyphanetUSKRecord) ToKey() string {
+func (record *HyphanetUSK) ToKey() string {
 	return fmt.Sprintf(
 		"USK@%s,%s,%s/%s/%d",
 		HYPHA_ENCODING.EncodeToString(record.KeyHash),
@@ -38,7 +38,7 @@ func (record *HyphanetUSKRecord) ToKey() string {
 	)
 }
 
-func USKRecordFromKey(key string) (*HyphanetUSKRecord, error) {
+func USKRecordFromKey(key string) (*HyphanetUSK, error) {
 	key, found := strings.CutPrefix(key, "USK@")
 	if !found {
 		return nil, errors.New("Hyphanet key must be a USK.")
@@ -82,7 +82,7 @@ func USKRecordFromKey(key string) (*HyphanetUSKRecord, error) {
 		return nil, err
 	}
 
-	return &HyphanetUSKRecord{
+	return &HyphanetUSK{
 		KeyHash: rawHash,
 		Key:     rawKey,
 		Extra:   rawExtra,

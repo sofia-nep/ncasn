@@ -26,7 +26,7 @@ import (
 
 const SAMPLE_USK = "USK@5hH~39FtjA7A9~VXWtBKI~prUDTuJZURudDG0xFn3KA,GDgRGt5f6xqbmo-WraQtU54x4H~871Sho9Hz6hC-0RA,AQACAAE/Search/17"
 
-var SAMPLE_HYPHA = ncasn.HyphanetUSKRecord{
+var SAMPLE_HYPHA = ncasn.HyphanetUSK{
 	KeyHash: []byte{
 		0xe6, 0x11, 0xfe, 0xdf,
 		0xd1, 0x6d, 0x8c, 0x0e,

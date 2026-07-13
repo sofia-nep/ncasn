@@ -17,37 +17,37 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 package ncasn
 
-type ARecord struct {
+type A struct {
 	Target []byte `asn1:"size:4"`
 }
 
 // Use Bytes, the offset must be exported for go-asn to handle it but it is useless after processing.
-type AAAARecord struct {
+type AAAA struct {
 	ZeroOffset *uint8 `asn1:"optional,size:0..13"`
 	Bytes      []byte `asn1:"size:0..16"`
 }
 
-type SrvRecord struct {
+type SRV struct {
 	Priority uint16  `asn1:"size:0..65535"`
 	Weight   *uint16 `asn1:"optional,size:0..65535"`
 	Port     uint16  `asn1:"size:0..65535"`
 	Target   string  `asn1:"ia5string,size:0..255"`
 }
 
-type DsRecord struct {
+type DS struct {
 	KeyTag uint16 `asn1:"size:0..65535"`
 	// Use GetKeyAlgorithm().
 	AlgorithmIndex uint8 `asn1:"size:0..3"`
 	Digest         DsDigestUnion
 }
 
-type TxtRecord struct {
+type TXT struct {
 	// May contain quoted strings up to 255 characters each.
 	Content string `asn1:"ia5string,size:0..4096"`
 }
 
 // Always assumed to be DANE-TA
-type TlsaRecord struct {
+type TLSA struct {
 	Selector        uint8 `asn1:"size:0..1"`
 	AssociationData TlsaUnion
 }
@@ -57,7 +57,7 @@ type CoordinateSecond struct {
 	Denominator *uint8 `asn1:"optional,size:0..127"`
 }
 
-type LocRecord struct {
+type LOC struct {
 	DegreesLat  int8  `asn1:"size:-90..90"`
 	DegreesLong int16 `asn1:"size:-180..180"`
 
@@ -77,31 +77,31 @@ type LocRecord struct {
 	VerticalPrecision   *uint32 `asn1:"optional,size:0..134217727"`
 }
 
-type MxRecord struct {
+type MX struct {
 	Priority uint16 `asn1:"size:0..65535"`
 	Target   string `asn1:"ia5string,size:0..255"`
 }
 
-type SshfpRecord struct {
+type SSHFP struct {
 	KeyAlgoIndex uint8 `asn1:"size:0..2"`
 	// Assumed to be SHA-256.
 	Fingerprint []byte `asn1:"size:32"`
 }
 
-func (record *SshfpRecord) GetKeyAlgo() uint8 {
+func (record *SSHFP) GetKeyAlgo() uint8 {
 	return record.KeyAlgoIndex + 4
 }
 
-type OnionV3Record struct {
+type OnionV3 struct {
 	// The version byte is omitted as upgrading may require a schema change anyway, append 0x03 before base32 encoding. The checksum bytes are also omitted.
 	Bytes []byte `asn1:"size:32"`
 }
 
-type I2pB32Record struct {
+type I2PB32 struct {
 	Bytes []byte `asn1:"size:32"`
 }
 
-type HyphanetUSKRecord struct {
+type HyphanetUSK struct {
 	KeyHash []byte `asn1:"size:32"`
 	Key     []byte `asn1:"size:32"`
 	Extra   []byte `asn1:"size:5"`
@@ -109,7 +109,7 @@ type HyphanetUSKRecord struct {
 	Edition int64  `asn1:"size:-9223372036854775808..9223372036854775807"`
 }
 
-type GenericRecord struct {
+type Generic struct {
 	Type   uint16 `asn1:"size:0..65535"`
 	Target string `asn1:"ia5string,size:0..255"`
 }

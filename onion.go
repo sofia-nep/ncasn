@@ -27,7 +27,7 @@ import (
 
 // https://spec.torproject.org/rend-spec/encoding-onion-addresses.html
 
-func OnionRecordFromDomain(domain string) (*OnionV3Record, error) {
+func OnionRecordFromDomain(domain string) (*OnionV3, error) {
 	b32, found := strings.CutSuffix(domain, ".onion")
 	if !found {
 		return nil, errors.New("Not an onion address.")
@@ -43,10 +43,10 @@ func OnionRecordFromDomain(domain string) (*OnionV3Record, error) {
 	}
 
 	// Omit version and checksum bytes.
-	return &OnionV3Record{Bytes: bytes[:32]}, nil
+	return &OnionV3{Bytes: bytes[:32]}, nil
 }
 
-func (record *OnionV3Record) ToDomain() string {
+func (record *OnionV3) ToDomain() string {
 	versionByteSlice := []byte{0x03}
 	checksum := sha3.Sum256(slices.Concat([]byte(".onion checksum"), record.Bytes, versionByteSlice))
 

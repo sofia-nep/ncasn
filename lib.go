@@ -28,20 +28,20 @@ import (
 )
 
 type RecordUnion struct {
-	A       *ARecord       `asn1:"choice:0"`
-	AAAA    *AAAARecord    `asn1:"choice:1"`
-	Srv     *SrvRecord     `asn1:"choice:2"`
-	Ds      *DsRecord      `asn1:"choice:3"`
-	Txt     *TxtRecord     `asn1:"choice:4"`
-	Tlsa    *TlsaRecord    `asn1:"choice:5"`
-	Loc     *LocRecord     `asn1:"choice:6"`
-	Mx      *MxRecord      `asn1:"choice:7"`
-	Sshfp   *SshfpRecord   `asn1:"choice:8"`
-	Cname   *string        `asn1:"choice:9,ia5string,size:0..255"`
-	Onion   *OnionV3Record `asn1:"choice:10"`
-	I2p     *I2pB32Record  `asn1:"choice:11"`
-	Generic *GenericRecord `asn1:"choice:12"`
-	Import  *string        `asn1:"choice:13,ia5string,size:3..63"`
+	A       *A       `asn1:"choice:0"`
+	AAAA    *AAAA    `asn1:"choice:1"`
+	Srv     *SRV     `asn1:"choice:2"`
+	Ds      *DS      `asn1:"choice:3"`
+	Txt     *TXT     `asn1:"choice:4"`
+	Tlsa    *TLSA    `asn1:"choice:5"`
+	Loc     *LOC     `asn1:"choice:6"`
+	Mx      *MX      `asn1:"choice:7"`
+	Sshfp   *SSHFP   `asn1:"choice:8"`
+	Cname   *string  `asn1:"choice:9,ia5string,size:0..255"`
+	Onion   *OnionV3 `asn1:"choice:10"`
+	I2p     *I2PB32  `asn1:"choice:11"`
+	Generic *Generic `asn1:"choice:12"`
+	Import  *string  `asn1:"choice:13,ia5string,size:3..63"`
 }
 
 // This is used in order to avoid manually handling data before Zone.Records, Zone cannot be (un)marshalled directly due to relying on consuming all data to determine the length of Zone.Records, which go-asn cannot do.

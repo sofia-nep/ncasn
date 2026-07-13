@@ -25,7 +25,7 @@ import (
 
 var I2P_ENCODING = base32.StdEncoding.WithPadding(base32.NoPadding)
 
-func I2pRecordFromDomain(domain string) (*I2pB32Record, error) {
+func I2pRecordFromDomain(domain string) (*I2PB32, error) {
 	b32, found := strings.CutSuffix(domain, ".b32.i2p")
 	if !found {
 		return nil, errors.New("Only .b32.i2p domains are supported.")
@@ -36,9 +36,9 @@ func I2pRecordFromDomain(domain string) (*I2pB32Record, error) {
 		return nil, err
 	}
 
-	return &I2pB32Record{Bytes: bytes}, nil
+	return &I2PB32{Bytes: bytes}, nil
 }
 
-func (record *I2pB32Record) ToDomain() string {
+func (record *I2PB32) ToDomain() string {
 	return strings.ToLower(I2P_ENCODING.EncodeToString(record.Bytes)) + ".b32.i2p"
 }

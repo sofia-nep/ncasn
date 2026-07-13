@@ -29,7 +29,7 @@ const SAMPLE_ONION_WRONG_VERSION = "rw6nbpjrmcpdxszn3air4bt7t75rpz4cp3c2kbdu72pt
 const SAMPLE_ONION_LONG = "rw6nbpjrmcpdxszn3air4bt7t75rpz4cp3c2kbdu72ptua57tzvin4ida.onion"
 const SAMPLE_ONION_SHORT = "rw6nbpjrmcpdxszn3air4bt7t75rpz4cp3c2kbdu72ptua57tzvin4i.onion"
 
-var SAMPLE_ONION_RECORD = ncasn.OnionV3Record{
+var SAMPLE_ONION_RECORD = ncasn.OnionV3{
 	Bytes: []byte{
 		0x8d, 0xbc, 0xd0, 0xbd,
 		0x31, 0x60, 0x9e, 0x3b,

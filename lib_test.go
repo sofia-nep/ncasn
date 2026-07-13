@@ -27,7 +27,7 @@ import (
 	"github.com/sofia-nep/ncasn"
 )
 
-var SAMPLE_AAAA = ncasn.AAAARecord{
+var SAMPLE_AAAA = ncasn.AAAA{
 	Bytes: []byte{
 		1, 1, 1, 0,
 		0, 0, 0, 1,
@@ -38,7 +38,7 @@ var SAMPLE_AAAA = ncasn.AAAARecord{
 
 var SAMPLE_OFFSET uint8 = 8
 
-var SAMPLE_PROCESSED = ncasn.AAAARecord{
+var SAMPLE_PROCESSED = ncasn.AAAA{
 	ZeroOffset: &SAMPLE_OFFSET,
 	Bytes: []byte{
 		1, 1, 1, 0,

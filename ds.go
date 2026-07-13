@@ -40,6 +40,6 @@ var DS_KEY_ALGOS = []uint8{
 	15, 16, 18, 19,
 }
 
-func (record *DsRecord) GetKeyAlgorithm() uint8 {
+func (record *DS) GetKeyAlgorithm() uint8 {
 	return DS_KEY_ALGOS[record.AlgorithmIndex]
 }
