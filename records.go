@@ -93,8 +93,8 @@ func (record *SshfpRecord) GetKeyAlgo() uint8 {
 }
 
 type OnionV3Record struct {
-	// The version byte is omitted as upgrading may require a schema change anyway, append 0x03 before base32 encoding.
-	Bytes []byte `asn1:"size:34"`
+	// The version byte is omitted as upgrading may require a schema change anyway, append 0x03 before base32 encoding. The checksum bytes are also omitted.
+	Bytes []byte `asn1:"size:32"`
 }
 
 type I2pB32Record struct {

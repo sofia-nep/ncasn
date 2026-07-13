@@ -18,11 +18,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 package ncasn
 
 import (
+	"crypto/sha3"
 	"encoding/base32"
 	"errors"
 	"slices"
 	"strings"
 )
+
+// https://spec.torproject.org/rend-spec/encoding-onion-addresses.html
 
 func OnionRecordFromDomain(domain string) (*OnionV3Record, error) {
 	b32, found := strings.CutSuffix(domain, ".onion")
@@ -35,12 +38,19 @@ func OnionRecordFromDomain(domain string) (*OnionV3Record, error) {
 		return nil, err
 	}
 
-	// Omit version byte
-	return &OnionV3Record{Bytes: bytes[:34]}, nil
+	if len(bytes) != 35 || bytes[34] != 0x03 {
+		return nil, errors.New("Not a v3 onion address.")
+	}
+
+	// Omit version and checksum bytes.
+	return &OnionV3Record{Bytes: bytes[:32]}, nil
 }
 
 func (record *OnionV3Record) ToDomain() string {
+	versionByteSlice := []byte{0x03}
+	checksum := sha3.Sum256(slices.Concat([]byte(".onion checksum"), record.Bytes, versionByteSlice))
+
 	// append() could modify the original, and we don't want that.
-	bytes := slices.Concat(record.Bytes, []byte{0x03})
+	bytes := slices.Concat(record.Bytes, checksum[:2], versionByteSlice)
 	return strings.ToLower(base32.StdEncoding.EncodeToString(bytes)) + ".onion"
 }
