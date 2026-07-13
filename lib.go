@@ -41,22 +41,16 @@ type RecordUnion struct {
 	Onion   *OnionV3Record `asn1:"choice:10"`
 	I2p     *I2pB32Record  `asn1:"choice:11"`
 	Generic *GenericRecord `asn1:"choice:12"`
-}
-
-type Import struct {
-	Value string `asn1:"ia5string,size:3..63"`
+	Import  *string        `asn1:"choice:13,ia5string,size:3..63"`
 }
 
 // This is used in order to avoid manually handling data before Zone.Records, Zone cannot be (un)marshalled directly due to relying on consuming all data to determine the length of Zone.Records, which go-asn cannot do.
 type ParsingPlaceholder struct {
 	Info *Whois `asn1:"optional"`
-	// Max size = floor(520 (NMC value size limit) / 3 ("d/x", smallest possible name)) = 173
-	Imports *[]Import `asn1:"optional,size:1..173"`
 }
 
 type Zone struct {
 	Info    *Whois
-	Imports *[]Import
 	Records []Record
 }
 
@@ -120,7 +114,7 @@ func UnmarshalRecords(data []byte) (*Zone, error) {
 	}
 
 	PostProcessIpv6(ret)
-	return &Zone{Imports: extraData.Imports, Info: extraData.Info, Records: ret}, nil
+	return &Zone{Info: extraData.Info, Records: ret}, nil
 }
 
 func countConsecutiveZeroBytes(slice []byte) uint8 {
@@ -213,7 +207,7 @@ func MarshalRecords(zone Zone) ([]byte, error) {
 	PreProcessIpv6(zone.Records)
 	writer := asn1.NewBitWriter(false)
 
-	err = uper.MarshalValue(writer, reflect.ValueOf(ParsingPlaceholder{Imports: zone.Imports, Info: zone.Info}), asn1.FieldOptions{})
+	err = uper.MarshalValue(writer, reflect.ValueOf(ParsingPlaceholder{Info: zone.Info}), asn1.FieldOptions{})
 	if err != nil {
 		return nil, err
 	}
