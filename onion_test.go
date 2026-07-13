@@ -26,7 +26,8 @@ import (
 
 const SAMPLE_ONION = "rw6nbpjrmcpdxszn3air4bt7t75rpz4cp3c2kbdu72ptua57tzvin4id.onion"
 const SAMPLE_ONION_WRONG_VERSION = "rw6nbpjrmcpdxszn3air4bt7t75rpz4cp3c2kbdu72ptua57tzvin4if.onion"
-const SAMPLE_ONION_WRONG_LEN = "rw6nbpjrmcpdxszn3air4bt7t75rpz4cp3c2kbdu72ptua57tzvin4ida.onion"
+const SAMPLE_ONION_LONG = "rw6nbpjrmcpdxszn3air4bt7t75rpz4cp3c2kbdu72ptua57tzvin4ida.onion"
+const SAMPLE_ONION_SHORT = "rw6nbpjrmcpdxszn3air4bt7t75rpz4cp3c2kbdu72ptua57tzvin4i.onion"
 
 var SAMPLE_ONION_RECORD = ncasn.OnionV3Record{
 	Bytes: []byte{
@@ -66,9 +67,16 @@ func TestOnionDomainVersion(t *testing.T) {
 		t.Error("Did not detect bad version.")
 	}
 }
-func TestOnionDomainLength(t *testing.T) {
-	_, err := ncasn.OnionRecordFromDomain(SAMPLE_ONION_WRONG_LEN)
+func TestOnionDomainLong(t *testing.T) {
+	_, err := ncasn.OnionRecordFromDomain(SAMPLE_ONION_LONG)
 	if err == nil {
-		t.Error("Did not detect bad length.")
+		t.Error("Did not detect long domain.")
+	}
+}
+
+func TestOnionDomainShort(t *testing.T) {
+	_, err := ncasn.OnionRecordFromDomain(SAMPLE_ONION_SHORT)
+	if err == nil {
+		t.Error("Did not detect short domain.")
 	}
 }
