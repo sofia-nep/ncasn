@@ -37,7 +37,7 @@ type RecordUnion struct {
 	Loc     *LocRecord     `asn1:"choice:6"`
 	Mx      *MxRecord      `asn1:"choice:7"`
 	Sshfp   *SshfpRecord   `asn1:"choice:8"`
-	Alias   *string        `asn1:"choice:9,ia5string,size:1..255"`
+	Cname   *string        `asn1:"choice:9,ia5string,size:1..255"`
 	Onion   *OnionV3Record `asn1:"choice:10"`
 	I2p     *I2pB32Record  `asn1:"choice:11"`
 	Generic *GenericRecord `asn1:"choice:12"`
