@@ -37,7 +37,8 @@ type RecordUnion struct {
 	Loc     *LOC     `asn1:"choice:6"`
 	Mx      *MX      `asn1:"choice:7"`
 	Sshfp   *SSHFP   `asn1:"choice:8"`
-	Cname   *string  `asn1:"choice:9,ia5string,size:0..255"`
+	// This is analogous to a DNS ALIAS record, Namecoin's aliases are analogous to DNS CNAME records, which can be specified in Generic instead.
+	Alias   *string  `asn1:"choice:9,ia5string,size:0..255"`
 	Onion   *OnionV3 `asn1:"choice:10"`
 	I2p     *I2PB32  `asn1:"choice:11"`
 	Generic *Generic `asn1:"choice:12"`
