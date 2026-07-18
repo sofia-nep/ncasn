@@ -43,6 +43,7 @@ type RecordUnion struct {
 	I2p     *I2PB32  `asn1:"choice:11"`
 	Generic *Generic `asn1:"choice:12"`
 	Import  *string  `asn1:"choice:13,ia5string,size:3..63"`
+	Ipns    *IPNS    `asn1:"choice:14"`
 }
 
 // This is used in order to avoid manually handling data before Zone.Records, Zone cannot be (un)marshalled directly due to relying on consuming all data to determine the length of Zone.Records, which go-asn cannot do.

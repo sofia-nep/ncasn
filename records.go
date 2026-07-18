@@ -109,6 +109,11 @@ type HyphanetUSK struct {
 	Edition int64  `asn1:"size:-9223372036854775808..9223372036854775807"`
 }
 
+type IPNS struct {
+	// Assumed to be Ed25519.
+	Key []byte `asn1:"size:32"`
+}
+
 type Generic struct {
 	Type   uint16 `asn1:"size:0..65535"`
 	Target string `asn1:"ia5string,size:0..255"`
